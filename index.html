@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>万镜斑斓工作室</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2A3B4C', // 深蓝灰主色
+                        secondary: '#8A7968', // 暖棕辅助色
+                        accent: '#D4B59E', // 淡棕强调色
+                        neutral: '#F5F1ED', // 米白中性色
+                        dark: '#1A2026', // 深色背景
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-balance {
+                text-wrap: balance;
+            }
+        }
+    </style>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        * {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A3B4C 0%, #1A2026 100%);
+        }
+        .gradient-bg-soft {
+            background: linear-gradient(135deg, #2A3B4C0A 0%, #1A20260A 100%);
+        }
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(26, 32, 38, 0.1);
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #D4B59E 0%, #8A7968 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav-blur {
+            backdrop-filter: blur(12px);
+            background-color: rgba(255, 255, 255, 0.92);
+            transition: all 0.3s ease;
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-out forwards;
+            opacity: 0;
+        }
+        .timeline-line {
+            height: 2px;
+            background: linear-gradient(90deg, #D4B59E, #8A7968);
+            width: 100%;
+            max-width: 80px;
+        }
+        .portfolio-item::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(26, 32, 38, 0) 0%, rgba(26, 32, 38, 0.8) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: inherit;
+        }
+        .portfolio-item:hover::before {
+            opacity: 1;
+        }
+        .btn-primary {
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: width 0.3s ease;
+            z-index: -1;
+        }
+        .btn-primary:hover::after {
+            width: 100%;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .animate-pulse-slow {
+            animation: pulse 3s infinite;
+        }
+    </style>
+</head>
+<body class="bg-neutral text-primary">
+    <!-- 导航栏 -->
+    <nav class="nav-blur fixed w-full z-50 transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <h1 class="text-2xl md:text-3xl font-bold text-gradient">万镜斑斓</h1>
+                <span class="ml-2 text-sm text-secondary">工作室</span>
+            </div>
+            
+            <div class="hidden md:flex space-x-8">
+                <a href="#home" class="text-primary hover:text-secondary font-medium transition-colors relative group">
+                    首页
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#about" class="text-primary hover:text-secondary font-medium transition-colors relative group">
+                    关于我们
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#services" class="text-primary hover:text-secondary font-medium transition-colors relative group">
+                    服务项目
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#portfolio" class="text-primary hover:text-secondary font-medium transition-colors relative group">
+                    作品集
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#process" class="text-primary hover:text-secondary font-medium transition-colors relative group">
+                    创作流程
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#contact" class="text-primary hover:text-secondary font-medium transition-colors relative group">
+                    联系我们
+                    <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </div>
+            
+            <!-- 移动端菜单按钮 -->
+            <button id="mobile-menu-btn" class="md:hidden text-primary focus:outline-none">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <!-- 移动端菜单 -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg absolute w-full">
+            <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+                <a href="#home" class="text-primary hover:text-secondary font-medium py-2 transition-colors">首页</a>
+                <a href="#about" class="text-primary hover:text-secondary font-medium py-2 transition-colors">关于我们</a>
+                <a href="#services" class="text-primary hover:text-secondary font-medium py-2 transition-colors">服务项目</a>
+                <a href="#portfolio" class="text-primary hover:text-secondary font-medium py-2 transition-colors">作品集</a>
+                <a href="#process" class="text-primary hover:text-secondary font-medium py-2 transition-colors">创作流程</a>
+                <a href="#contact" class="text-primary hover:text-secondary font-medium py-2 transition-colors">联系我们</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 首页Hero区域 -->
+    <section id="home" class="gradient-bg pt-32 pb-28 md:pt-40 md:pb-36 overflow-hidden relative">
+        <!-- 装饰元素 -->
+        <div class="absolute top-1/4 right-10 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
+        <div class="absolute bottom-1/4 left-10 w-80 h-80 bg-accent/10 rounded-full blur-3xl"></div>
+        
+        <div class="container mx-auto px-4 text-center text-white relative z-10">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight fade-in" style="animation-delay: 0.1s">
+                用镜头讲述<span class="text-accent">斑斓</span>故事
+            </h1>
+            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto opacity-90 fade-in" style="animation-delay: 0.3s">
+                专业微电影创作与视频剪辑，捕捉每一个值得珍藏的瞬间
+            </p>
+            <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-6 fade-in" style="animation-delay: 0.5s">
+                <button onclick="window.location.href='https://space.bilibili.com/3546872509631386?spm_id_from=333.337.0.0'" class="bg-white text-primary px-8 py-3 rounded-lg font-semibold text-lg hover:bg-neutral transition-colors btn-primary">
+                    观看作品
+                </button>
+                <button onclick="window.location.href='#contact'" class="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-semibold text-lg hover:bg-white/10 transition-colors">
+                    联系我们
+                </button>
+            </div>
+        </div>
+        
+        <!-- 波浪底部装饰 -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-0">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-[60px]">
+                <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C59.71,118.11,165.07,111.28,321.39,56.44Z" fill="#F5F1ED"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- 关于我们 -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h6 class="text-secondary font-medium mb-2">关于我们</h6>
+                <div class="timeline-line mx-auto mb-4"></div>
+                <h2 class="text-3xl md:text-4xl font-bold text-primary">万镜斑斓的故事</h2>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2 relative">
+                    <div class="relative z-10 rounded-xl overflow-hidden shadow-xl hover-lift">
+                        <img src="海报.png" alt="万镜斑斓工作室" class="w-full h-auto">
+                    </div>
+                    <div class="absolute -bottom-6 -right-6 w-64 h-64 bg-accent/10 rounded-full -z-10"></div>
+                    <div class="absolute -top-6 -left-6 w-32 h-32 bg-primary/5 rounded-full -z-10"></div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl md:text-3xl font-semibold mb-6 text-primary">用影像创造无限可能</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        万镜斑斓工作室成立于2024年，由一群热爱影像创作的年轻人共同创立。我们相信，每一个镜头背后都有一个独特的故事，每一次剪辑都是一次艺术的再创造。
+                    </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        我们的团队拥有丰富的微电影创作经验和专业的视频剪辑技术，致力于为客户提供高品质的影像服务，让每一个瞬间都能以最美好的方式被珍藏。
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div class="bg-accent/10 p-6 rounded-xl hover-lift">
+                            <h4 class="font-semibold text-3xl text-secondary mb-2">100+</h4>
+                            <p class="text-gray-600">完成项目</p>
+                        </div>
+                        <div class="bg-primary/5 p-6 rounded-xl hover-lift">
+                            <h4 class="font-semibold text-3xl text-primary mb-2">3年</h4>
+                            <p class="text-gray-600">行业经验</p>
+                        </div>
+                        <div class="bg-primary/5 p-6 rounded-xl hover-lift">
+                            <h4 class="font-semibold text-3xl text-primary mb-2">90%</h4>
+                            <p class="text-gray-600">客户满意度</p>
+                        </div>
+                        <div class="bg-accent/10 p-6 rounded-xl hover-lift">
+                            <h4 class="font-semibold text-3xl text-secondary mb-2">15+</h4>
+                            <p class="text-gray-600">专业奖项</p>
+                        </div>
+                    </div>
+                    
+                    <a href="#contact" class="inline-block gradient-bg text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition-all btn-primary">
+                        了解更多
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 服务项目 -->
+    <section id="services" class="py-20 bg-neutral">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h6 class="text-secondary font-medium mb-2">我们的服务</h6>
+                <div class="timeline-line mx-auto mb-4"></div>
+                <h2 class="text-3xl md:text-4xl font-bold text-primary">专业影像解决方案</h2>
+                <p class="text-center text-gray-600 mt-4 max-w-2xl mx-auto text-balance">
+                    从创意构思到最终成片，我们提供全方位的微电影创作与视频剪辑服务
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover-lift border border-gray-100">
+                    <div class="w-16 h-16 gradient-bg rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-film text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-primary">微电影创作</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        从剧本创作、拍摄到后期制作，我们提供完整的微电影制作服务，用镜头语言讲述动人故事。
+                    </p>
+                    <ul class="text-gray-600 space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-secondary mt-1 mr-3"></i>
+                            <span>创意剧本策划</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-secondary mt-1 mr-3"></i>
+                            <span>专业团队拍摄</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-secondary mt-1 mr-3"></i>
+                            <span>精致后期制作</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover-lift border border-gray-100">
+                    <div class="w-16 h-16 gradient-bg rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-cut text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-primary">视频剪辑</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        专业的视频剪辑服务，包括素材整理、剪辑、调色、配音、特效等，让您的视频更具吸引力。
+                    </p>
+                    <ul class="text-gray-600 space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-secondary mt-1 mr-3"></i>
+                            <span>多轨道精细剪辑</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-secondary mt-1 mr-3"></i>
+                            <span>专业调色与特效</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-secondary mt-1 mr-3"></i>
+                            <span>音频优化处理</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="bg-white p-8 rounded-2xl shadow-sm hover-lift border border-gray-100">
+                    <div class="w-16 h-16 gradient-bg rounded-xl flex items-center justify-center mb-6">
+                        <i class="fas fa-video text-white text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4 text-primary">宣传片制作</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        为品牌或个人定制高质量宣传片，突出核心价值，提升品牌形象与影响力。
+                    </p>
+                    <ul class="text-gray-600 space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-secondary mt-1 mr-3"></i>
+                            <span>品牌定位分析</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-secondary mt-1 mr-3"></i>
+                            <span>创意视觉呈现</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-secondary mt-1 mr-3"></i>
+                            <span>多渠道适配输出</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 作品集 -->
+    <section id="portfolio" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h6 class="text-secondary font-medium mb-2">精选作品</h6>
+                <div class="timeline-line mx-auto mb-4"></div>
+                <h2 class="text-3xl md:text-4xl font-bold text-primary">我们的创作</h2>
+                <p class="text-center text-gray-600 mt-4 max-w-2xl mx-auto text-balance">
+                    欣赏我们为不同客户创作的微电影和视频作品，感受镜头语言的魅力
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <div class="rounded-xl overflow-hidden shadow-md hover-lift group relative portfolio-item">
+                    <img src="好戏开场.png" alt="《好戏开场》" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute bottom-0 left-0 right-0 p-6 z-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <h3 class="font-semibold text-xl mb-2 text-white">《好戏开场》</h3>
+                        <p class="text-white/80 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                            以万镜为言语，构建斑斓世界
+                        </p>
+                        <a href="https://www.bilibili.com/video/BV13mnbziEx3/?spm_id_from=333.1387.homepage.video_card.click&vd_source=196b2251782bc0615ec6820d6a8d3176" class="inline-flex items-center text-white font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200">
+                            观看完整影片 <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="rounded-xl overflow-hidden shadow-md hover-lift group relative portfolio-item">
+                    <img src="高考应援.avif" alt="《高考应援》" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute bottom-0 left-0 right-0 p-6 z-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <h3 class="font-semibold text-xl mb-2 text-white">《高考应援》</h3>
+                        <p class="text-white/80 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                            2025高考应援
+                        </p>
+                        <a href="https://www.bilibili.com/video/BV1TqJAzWEvE/?spm_id_from=333.1387.homepage.video_card.click&vd_source=196b2251782bc0615ec6820d6a8d3176" class="inline-flex items-center text-white font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200">
+                            观看完整影片 <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="rounded-xl overflow-hidden shadow-md hover-lift group relative portfolio-item">
+                    <img src="2025招新.avif" alt="《2025招新宣传》" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute bottom-0 left-0 right-0 p-6 z-10 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                        <h3 class="font-semibold text-xl mb-2 text-white">《2025招新宣传》</h3>
+                        <p class="text-white/80 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                            2025招新宣传
+                        </p>
+                        <a href="https://www.bilibili.com/video/BV1vR49zbE8k/?spm_id_from=333.1387.homepage.video_card.click&vd_source=196b2251782bc0615ec6820d6a8d3176" class="inline-flex items-center text-white font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-200">
+                            观看完整影片 <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <a href="https://space.bilibili.com/3546872509631386?spm_id_from=333.337.0.0" class="inline-block border-2 border-primary text-primary px-8 py-3 rounded-lg font-medium hover:bg-primary hover:text-white transition-colors">
+                    查看更多作品
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 创作流程 -->
+    <section id="process" class="py-20 bg-neutral">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h6 class="text-secondary font-medium mb-2">创作流程</h6>
+                <div class="timeline-line mx-auto mb-4"></div>
+                <h2 class="text-3xl md:text-4xl font-bold text-primary">我们的工作方式</h2>
+                <p class="text-center text-gray-600 mt-4 max-w-2xl mx-auto text-balance">
+                    我们采用系统化的创作流程，确保每个项目都能高效、高质量地完成
+                </p>
+            </div>
+            
+            <div class="relative">
+                <!-- 连接线 - 仅在中等以上屏幕显示 -->
+                <div class="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-accent to-secondary transform -translate-y-1/2 z-0"></div>
+                
+                <div class="flex flex-col md:flex-row justify-between relative z-10">
+                    <div class="text-center max-w-xs mb-12 md:mb-0 hover-lift">
+                        <div class="w-20 h-20 gradient-bg rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                            <span class="text-white font-bold text-2xl">1</span>
+                        </div>
+                        <h3 class="font-semibold text-xl mb-3 text-primary">需求沟通</h3>
+                        <p class="text-gray-600">深入了解客户需求，明确创作目标和预期效果</p>
+                    </div>
+                    
+                    <div class="text-center max-w-xs mb-12 md:mb-0 hover-lift">
+                        <div class="w-20 h-20 gradient-bg rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                            <span class="text-white font-bold text-2xl">2</span>
+                        </div>
+                        <h3 class="font-semibold text-xl mb-3 text-primary">创意策划</h3>
+                        <p class="text-gray-600">制定创意方案，编写剧本，规划拍摄计划</p>
+                    </div>
+                    
+                    <div class="text-center max-w-xs mb-12 md:mb-0 hover-lift">
+                        <div class="w-20 h-20 gradient-bg rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                            <span class="text-white font-bold text-2xl">3</span>
+                        </div>
+                        <h3 class="font-semibold text-xl mb-3 text-primary">拍摄制作</h3>
+                        <p class="text-gray-600">专业团队进行现场拍摄，捕捉高质量素材</p>
+                    </div>
+                    
+                    <div class="text-center max-w-xs mb-12 md:mb-0 hover-lift">
+                        <div class="w-20 h-20 gradient-bg rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                            <span class="text-white font-bold text-2xl">4</span>
+                        </div>
+                        <h3 class="font-semibold text-xl mb-3 text-primary">后期剪辑</h3>
+                        <p class="text-gray-600">精细剪辑、调色、配音、特效等后期处理</p>
+                    </div>
+                    
+                    <div class="text-center max-w-xs hover-lift">
+                        <div class="w-20 h-20 gradient-bg rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                            <span class="text-white font-bold text-2xl">5</span>
+                        </div>
+                        <h3 class="font-semibold text-xl mb-3 text-primary">交付成果</h3>
+                        <p class="text-gray-600">最终审核，交付成品，并提供后续支持服务</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h6 class="text-secondary font-medium mb-2">联系我们</h6>
+                <div class="timeline-line mx-auto mb-4"></div>
+                <h2 class="text-3xl md:text-4xl font-bold text-primary">与我们取得联系</h2>
+                <p class="text-center text-gray-600 mt-4 max-w-2xl mx-auto text-balance">
+                    有任何项目需求或咨询，欢迎随时与我们联系
+                </p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-12 items-center">
+                <div class="lg:w-1/2 w-full">
+                    <div class="bg-neutral p-8 rounded-2xl shadow-sm w-full gradient-bg-soft">
+                        <h3 class="text-2xl font-semibold mb-6 text-primary">联系信息</h3>
+                    
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-map-marker-alt text-secondary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-primary mb-1">工作室地址</h4>
+                                    <p class="text-gray-600">宁德一中</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-phone text-secondary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-primary mb-1">联系电话</h4>
+                                    <p class="text-gray-600">1145141919810(其实还没有)</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-envelope text-secondary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-primary mb-1">电子邮箱</h4>
+                                    <p class="text-gray-600">3903278913@qq.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-12 h-12 bg-accent/10 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-clock text-secondary text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium text-primary mb-1">工作时间</h4>
+                                    <p class="text-gray-600">周一至周五</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-10">
+                            <h4 class="font-medium text-primary mb-4">关注我们</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-colors hover-lift">
+                                    <i class="fab fa-qq text-xl"></i>
+                                </a>
+                                <a href="https://space.bilibili.com/3546872509631386?spm_id_from=333.337.0.0" class="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center text-secondary hover:bg-secondary hover:text-white transition-colors hover-lift">
+                                    <i class="fab fa-bilibili text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2 w-full">
+                    <div class="bg-white p-8 rounded-2xl shadow-md border border-gray-100 w-full">
+                        <h3 class="text-2xl font-semibold mb-6 text-primary">发送消息</h3>
+                        <form>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="name" class="block text-gray-700 mb-2">您的姓名</label>
+                                    <input type="text" id="name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all" placeholder="请输入您的姓名">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-gray-700 mb-2">电子邮箱</label>
+                                    <input type="email" id="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all" placeholder="请输入您的邮箱">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="subject" class="block text-gray-700 mb-2">主题</label>
+                                <input type="text" id="subject" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all" placeholder="请输入消息主题">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="message" class="block text-gray-700 mb-2">您的消息</label>
+                                <textarea id="message" rows="5" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all resize-none" placeholder="请输入您的消息内容"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="w-full gradient-bg text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all btn-primary">
+                                发送消息
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <div class="mb-6 md:mb-0 text-center md:text-left">
+                    <h2 class="text-2xl font-bold text-gradient mb-2">万镜斑斓工作室</h2>
+                    <p class="text-gray-400 max-w-md">用镜头讲述斑斓故事，专业微电影创作与视频剪辑工作室</p>
+                </div>
+                
+                <div class="flex flex-wrap justify-center gap-x-12 gap-y-4">
+                    <a href="#home" class="text-gray-400 hover:text-white transition-colors">首页</a>
+                    <a href="#about" class="text-gray-400 hover:text-white transition-colors">关于我们</a>
+                    <a href="#services" class="text-gray-400 hover:text-white transition-colors">服务项目</a>
+                    <a href="#portfolio" class="text-gray-400 hover:text-white transition-colors">作品集</a>
+                    <a href="#contact" class="text-gray-400 hover:text-white transition-colors">联系我们</a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2025 万镜斑斓工作室 版权所有</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-white transition-colors">
+                        <i class="fab fa-qq"></i>
+                    </a>
+                    <a href="https://space.bilibili.com/3546872509631386?spm_id_from=333.337.0.0" class="text-gray-500 hover:text-white transition-colors">
+                        <i class="fab fa-bilibili"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 移动端菜单切换
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // 关闭移动端菜单
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+        
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('shadow-md');
+                nav.classList.add('py-2');
+                nav.classList.remove('py-3');
+            } else {
+                nav.classList.remove('shadow-md');
+                nav.classList.add('py-3');
+                nav.classList.remove('py-2');
+            }
+        });
+        
+        // 滚动动画
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('section > div > div').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
